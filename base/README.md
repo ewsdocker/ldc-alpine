@@ -4,54 +4,72 @@ __Preliminary Documentation__ - 2020-10-14
 ____  
 ### ewsdocker/ldc-alpine:abase:3.12.0
 
-**ewsdocker/ldc-alpine:abase** is based upon the latest (**edge**) version of the [nimmis/alpine-micro](https://github.com/nimmis/alpine-micro) docker image. It adds several system utilities and libraries that are nominally required to properly utilize the **library/alpine** docker image.  
+**ewsdocker/ldc-alpine:abase** is based upon the newest (**edge**) version of the [nimmis/alpine-micro](https://github.com/nimmis/alpine-micro) docker image. It adds several system utilities and libraries that are nominally required to properly utilize the **library/alpine** docker image.  
 
 ______  
 
-A pre-made docker image of **ewsdocker/ldc-alpine:abase** is available from [ewsdocker/ldc-alpine:abase](https://hub.docker.com/r/ewsdocker/ldc-alpine:abase/) at [Docker Hub](https://hub.docker.com).  
+<b><u>Docker Image</u></b>  
+<ul>  
+A pre-made docker image of <i>ewsdocker/ldc-alpine:abase</i> is available from <a href="https://hub.docker.com/r/ewsdocker/ldc-alpine:abase/">ewsdocker/ldc-alpine:abase</a> at <a href="https://hub.docker.com">Docker Hub</a>.  
+<p>
+The image may be downloaded and built (refer to <i>Building ewsdocker/ldc-alpine:abase</i>, below), or downloaded automatically using the <i>Run</i> command (refer to <i>Creating <b>abase</b></i>, below).
+</p>
+</ul>  
+
 ______  
 
+<b><u>Building ewsdocker/ldc-alpine:abase</u></b>  
+<p>
 
-**Installing ewsdocker/ldc-alpine:abase**  
+    docker build \
+      --build-arg DNAME="ABASE" \
+      \
+      --build-arg BUILD_DAEMON="1" \
+      --build-arg BUILD_TEMPLATE="daemon" \
+      \
+      --build-arg BUILD_NAME="ldc-alpine" \
+      --build-arg BUILD_VERSION="abase" \
+      --build-arg BUILD_VERS_EXT="-3.12.0" \
+      --build-arg BUILD_EXT_MOD="" \
+      \
+      --build-arg FROM_REPO="" \
+      --build-arg FROM_PARENT="nimmis" \
+      --build-arg FROM_VERS="alpine-micro" \
+      --build-arg FROM_EXT="-3.12" \
+      --build-arg FROM_EXT_MOD="" \
+      \
+      --file=Dockerfile \
+    -t ewsdocker/ldc-alpine:abase-3.12.0 .
 
-The following scripts will download the the selected **ewsdocker/ldc-alpine:abase** image, create a container, setup and populate the directory structures, create the run-time scripts, and install the application's desktop file(s).  
-
-The <i>default</i> values will install all directories and contents in the <b>docker host</b> user's home directory (refer to <a href="#mapping">Mapping docker host resources to the docker container</a>, below).  
-
-**ewsdocker/ldc-alpine:abase:3.12.0**
-  
-    docker run --rm \
-               -v ${HOME}/bin:/userbin \
-               -v ${HOME}/.local:/usrlocal \
-               -e LMS_BASE="${HOME}/.local" \
-               -v ${HOME}/.config/docker:/conf \
-               -v ${HOME}/.config/docker/ldc-alpine:abase-3.12.0:/root \
-               --name=ldc-alpine:abase-3.12.0 \
-           ewsdocker/ldc-alpine:abase:3.12.0 lms-setup-alpine  
+</p>  
 
 ____  
 
-**Running the installed scripts**
+**Creating the abase:3.12.0 container.**
+
+
+    docker run \  
+       -d \  
+       --rm \  
+       \  
+       -e LMS_BASE="${HOME}/.local" \  
+       \  
+       -v /etc/localtime:/etc/localtime:ro \  
+       \  
+       -v ${HOME}/bin:/userbin \  
+       -v ${HOME}/.local:/usrlocal \  
+       -v ${HOME}/.config/docker:/conf \  
+       -v ${HOME}/.config/docker/ldc-alpine-abase-0.1.0:${HOME} \  
+       -v ${HOME}/.config/docker/ldc-alpine-abase-0.1.0/workspace:/workspace \  
+       \  
+       --name abase-3.12.0 \  
+     ewsdocker/ldc-alpine:abase-3.12.0  
 
 After running the above command script, and using the settings indicated, the docker host directories, mapped as shown in the above tables, will be configured as follows:
-
- - the executable scripts have been copied to **~/bin**;  
- - the application desktop file(s) have been copied to **~/.local/share/applications**, and are availablie in any _task bar_ menu;  
- - the associated **ldc-alpine:abase-"version"** executable script (shown below) will be found in **~/.local/bin**, and _should_ be customized with proper local volume names;  
-
-____  
-
-**Execution scripts**  
-
-**ewsdocker/ldc-alpine:abase:3.12.0**  
-  
-    docker run -d \
-           --rm \
-           -v /etc/localtime:/etc/localtime:ro \
-           -v ${HOME}/workspace-base-3.12.0:/workspace \
-           -v ${HOME}/.config/docker/ldc-alpine:abase-3.12.0:/root \
-           --name=ldc-alpine:abase-3.12.0 \
-       ewsdocker/ldc-alpine:abase:3.12.0  
+<ul>
+ <li>the executable scripts have been copied to <b>~/bin</b>;</li>
+ <li>the associated <b>ldc-alpine:abase-"version"</b> executable script (shown below) will be found in <b>~/.local/bin</b>, and <i>should</i> be customized with proper local volume names;</li>
+</ul>
 
 ____  
 
@@ -77,7 +95,7 @@ Among the additional packages are
 
 ______  
 
-**Visit the [ewsdocker/ldc-alpine:abase Wiki](https://github.com/ewsdocker/ldc-alpine:abase/wiki/QuickStart) for complete documentation of this docker image.**  
+Visit the [ewsdocker/ldc-alpine:abase Wiki](https://github.com/ewsdocker/ldc-alpine:abase/wiki/QuickStart) for complete documentation of this docker image.  
 
 ____  
 
