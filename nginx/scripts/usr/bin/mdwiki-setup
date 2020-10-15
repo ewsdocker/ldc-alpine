@@ -1,0 +1,44 @@
+#!/bin/ash
+# =========================================================================
+# =========================================================================
+#
+#	mdwiki-setup
+#	  Copies MDwiki html files from latest build to the 
+#       /usr/share/nginx/html mapped directory
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.1
+# @copyright © 2018. EarthWalk Software.
+# @license Licensed under the Academic Free License version 3.0
+# @package ewsdocker/alpine-nginx
+# @subpackage version
+#
+# =========================================================================
+#
+#	Copyright © 2018. EarthWalk Software
+#	Licensed under the Academic Free License, version 3.0.
+#
+#	Refer to the file named License.txt provided with the source,
+#	or from
+#
+#		http://opensource.org/licenses/academic.php
+#
+# =========================================================================
+# =========================================================================
+
+echo
+echo "Adding mdwiki-latest scripts to /usr/share/nginx/html"
+echo
+
+cd /usr/share/nginx/html
+
+wget http://dynalon.github.io/mdwiki/mdwiki-latest.html
+wget http://dynalon.github.io/mdwiki/mdwiki-latest-debug.html
+chmod 775 mdwiki-latest*.html
+
+echo
+echo "mdwiki-latest scripts COPIED to /usr/share/nginx/html"
+echo
+

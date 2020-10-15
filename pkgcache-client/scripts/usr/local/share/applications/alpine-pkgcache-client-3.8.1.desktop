@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Exec=/home/jay/.local/bin/docker-deb-start-0.0.2 alpine-pkgcache-client-3.8.1
+Icon=/home/jay/.local/share/icons/default.png
+Type=Application
+Terminal=true
+GenericName=Alpine PKG Client (3.8.1)
+Name=Alpine PKG Client (3.8.1)
+StartupNotify=false
+Categories=Development

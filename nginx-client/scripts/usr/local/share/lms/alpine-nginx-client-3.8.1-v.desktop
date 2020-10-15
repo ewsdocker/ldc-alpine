@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Exec=/home/jay/.local/bin/docker-deb-start-0.0.2 alpine-nginx-client-3.8.1-v
+Icon=/home/jay/.local/share/icons/default.png
+Type=Application
+Terminal=true
+GenericName=Alpine Nginx Client (3.8.1-v)
+Name=Alpine Nginx Client (3.8.1-v)
+StartupNotify=false
+Categories=Development
