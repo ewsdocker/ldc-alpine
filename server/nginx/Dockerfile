@@ -2,7 +2,7 @@
 # ========================================================================================
 #
 #    Dockerfile
-#      Dockerfile for ldc-alpine:anginx container.
+#      Dockerfile for ldc-server:anginx container.
 #
 # ========================================================================================
 #
@@ -11,7 +11,7 @@
 # @copyright © 2018-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
-# @subpackage nginx
+# @subpackage ldc-server
 #
 # ========================================================================================
 #
@@ -65,8 +65,8 @@
 # ========================================================================================
 
 ARG FROM_REPO="ewsdocker"
-ARG FROM_PARENT="ldc-alpine"
-ARG FROM_VERS="abase"
+ARG FROM_PARENT="ldc-foundation"
+ARG FROM_VERS="base"
 ARG FROM_EXT="-0.1.0"
 ARG FROM_EXT_MOD="-b4"
 
@@ -86,15 +86,9 @@ ARG FROM_EXT_MOD
 
 # =========================================================================
 
-COPY setup/. /setup/
-
-RUN chmod +x /setup/*.sh \
-    && /setup/nginx.sh \
-    && rm -Rf /setup 
-
-# =========================================================================
-
-RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
+RUN mkdir -p /tmp \
+ \
+ && GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& CONFIG="\
 		--prefix=/etc/nginx \
 		--sbin-path=/usr/sbin/nginx \

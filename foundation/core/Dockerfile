@@ -118,7 +118,7 @@ ENV \
     LMS_CONF= \
     \
     LMS_CATEGORIES=${BUILD_CATEGORIES:-"System"} \
-    LMS_DESKTOP=${BUILD_DESKTOP:-"ldc-foundation:acore"} \
+    LMS_DESKTOP=${BUILD_DESKTOP:-"ldc-foundation:core"} \
     LMS_ICON=${BUILD_ICON:-"default.png"} \
     \
     LMS_FROM="${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}" \
@@ -128,7 +128,7 @@ ENV \
     LMS_REPO=${BUILD_REPO:-"ewsdocker"} \
     \
     LMS_NAME=${BUILD_NAME:-"ldc-foundation"} \
-    LMS_VERSION=${BUILD_VERSION:-"acore"} \
+    LMS_VERSION=${BUILD_VERSION:-"core"} \
     LMS_VERS_X=${BUILD_VERS_EXT:-"-0.1.0"} \
     LMS_VERS_MOD=${BUILD_EXT_MOD:-"-b4"} 
 

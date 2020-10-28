@@ -3,12 +3,12 @@
 # ========================================================================================
 #
 #    build/core.sh
-#      Build/Installation file for ldc-foundation:acore-0.1.0-b4
+#      Build/Installation file for ldc-foundation:core-0.1.0-b4
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version ldc-foundation:acore-0.1.0-b4
+# @version ldc-foundation:core-0.1.0-b4
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
@@ -50,10 +50,10 @@ echo
 echo "Removing ldc-foundation:acore-0.1.0-b4"
 echo
 
-docker rmi ewsdocker/ldc-foundation:acore-0.1.0-b4
+docker rmi ewsdocker/ldc-foundation:core-0.1.0-b4
 
 echo
-echo "Building ewsdocker/ldc-foundation:acore-0.1.0-b4"
+echo "Building ewsdocker/ldc-foundation:core-0.1.0-b4"
 echo
 
 docker build \
@@ -63,7 +63,7 @@ docker build \
   --build-arg BUILD_TEMPLATE="daemon" \
   \
   --build-arg BUILD_NAME="ldc-foundation" \
-  --build-arg BUILD_VERSION="acore" \
+  --build-arg BUILD_VERSION="core" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
   --build-arg BUILD_EXT_MOD="-b4" \
   \
@@ -74,15 +74,15 @@ docker build \
   --build-arg FROM_EXT_MOD="" \
   \
   --file=Dockerfile \
-  -t ewsdocker/ldc-foundation:acore-0.1.0-b4 .
+  -t ewsdocker/ldc-foundation:core-0.1.0-b4 .
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-foundation:acore-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-foundation:core-0.1.0-b4 failed"
  	exit 1
  }
 
 echo
-echo "Completed build of ldc-foundation:acore-0.1.0-b4 from ewsdocker/nimmis:alpine-micro-3.12"
+echo "Completed build of ldc-foundation:core-0.1.0-b4 from ewsdocker/nimmis:alpine-micro-3.12"
 echo
 
 . run/core.sh

@@ -2,17 +2,17 @@
 # ========================================================================================
 # ========================================================================================
 #
-#    build/base.sh
-#      Build/Installation file for ldc-foundation:base-0.1.0-b4
+#    build/nginx.sh
+#      Build/Installation file for ldc-server:nginx-0.1.0-b4
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version ldc-foundation:base-0.1.0-b4
+# @version ldc-server:nginx-0.1.0-b4
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
-# @subpackage ldc-foundation
+# @subpackage ldc-server
 #
 # ========================================================================================
 #
@@ -37,59 +37,54 @@
 #
 # ========================================================================================
 # ========================================================================================
-cd ~/Development/ewsldc/ldc-alpine/foundation/base
+cd ~/Development/ewsldc/ldc-alpine/server/nginx
 
 echo
-echo "Stopping and removing base-0.1.0-b4"
+echo "Stopping and removing anginx-0.1.0-b4"
 echo
 
-docker stop base-0.1.0-b4
-docker rm base-0.1.0-b4
+docker stop anginx-0.1.0-b4
+docker rm anginx-0.1.0-b4
 
 echo
-echo "Removing ldc-foundation:base-0.1.0-b4"
+echo "Removing ldc-server:nginx-0.1.0-b4"
 echo
 
-docker rmi ewsdocker/ldc-foundation:base-0.1.0-b4
+docker rmi ewsdocker/ldc-server:nginx-0.1.0-b4
 
 echo
-echo "Building ewsdocker/ldc-foundation:base-0.1.0-b4"
+echo "Building ewsdocker/ldc-server:nginx-0.1.0-b4"
 echo
 
 docker build \
-  --build-arg DNAME="ABASE" \
+  --build-arg DNAME="ANGINX" \
   \
   --build-arg BUILD_DAEMON="1" \
   --build-arg BUILD_TEMPLATE="daemon" \
   \
-  --build-arg BUILD_NAME="ldc-foundation" \
-  --build-arg BUILD_VERSION="base" \
+  --build-arg BUILD_NAME="ldc-server" \
+  --build-arg BUILD_VERSION="nginx" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
   --build-arg BUILD_EXT_MOD="-b4" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-foundation" \
-  --build-arg FROM_VERS="core" \
+  --build-arg FROM_VERS="base" \
   --build-arg FROM_EXT="-0.1.0" \
   --build-arg FROM_EXT_MOD="-b4" \
   \
-  --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b4" \
-  --build-arg LIB_INSTALL="1" \
-  \
-  --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
-  --network=pkgnet \
+  --network=nginx-net \
   \
   --file=Dockerfile \
-  -t ewsdocker/ldc-foundation:base-0.1.0-b4 .
+  -t ewsdocker/ldc-server:nginx-0.1.0-b4 .
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-foundation:base-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-server:nginx-0.1.0-b4 failed"
  	exit 1
  }
 
 echo
-echo "Completed build of ldc-foundation:base-0.1.0-b4 from ldc-foundation:core-0.1.0-b4"
+echo "Completed build of ldc-server:nginx-0.1.0-b4 from ldc-foundation:base-0.1.0-b4"
 echo
 
-. run/base.sh
+. run/nginx.sh

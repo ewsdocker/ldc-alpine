@@ -124,7 +124,7 @@ function addPkgReqs()
      addPkg "bash-doc bash-completion dbus dbus-libs"
      addPkg "eudev-libs expat findutils hwids-usb"
      addPkg "libusb linux-pam pkgconf shadow usbutils"
-     addPkg "util-linux-bash-completion"
+     addPkg "util-linux-bash-completion su-exec"
 
 	 return 0
 }

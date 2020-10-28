@@ -37,11 +37,11 @@
 # ========================================================================================
 # ========================================================================================
 
-ARG FROM_REPO="nimmis"
-ARG FROM_PARENT="alpine-micro"
-ARG FROM_VERS="3.12"
-ARG FROM_EXT=""
-ARG FROM_EXT_MOD=""
+ARG FROM_REPO="ewsdocker"
+ARG FROM_PARENT="ldc-foundation"
+ARG FROM_VERS="core"
+ARG FROM_EXT="-0.1.0"
+ARG FROM_EXT_MOD="-b4"
 
 FROM ${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
 
@@ -118,7 +118,7 @@ ENV \
     LMS_CONF= \
     \
     LMS_CATEGORIES=${BUILD_CATEGORIES:-"System"} \
-    LMS_DESKTOP=${BUILD_DESKTOP:-"ldc-foundation:acore"} \
+    LMS_DESKTOP=${BUILD_DESKTOP:-"ldc-foundation:base"} \
     LMS_ICON=${BUILD_ICON:-"default.png"} \
     \
     LMS_FROM="${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}" \
@@ -174,7 +174,7 @@ COPY scripts/. /
 COPY setup/.   /setup
 
 RUN chmod +x /setup/*.sh \
- && if test "${LMSLIB_INST}" = "1"; then echo "sending library ***"; /setup/install_library.sh; echo "library loaded ****"; fi  
+ && if test "${LMSLIB_INST}" = "1"; then /setup/install_library.sh; fi  
 
 # =========================================================================
 

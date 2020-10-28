@@ -2,12 +2,12 @@
 # ========================================================================================
 # ========================================================================================
 #
-#      Run/Install file for abase-0.1.0-b4 from ldc-foundation:abase-0.1.0-b4.
+#      Run/Install file for abase-0.1.0-b4 from ldc-foundation:base-0.1.0-b4.
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version ldc-foundation-abase-0.1.0-b4
+# @version ldc-foundation-base-0.1.0-b4
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
@@ -45,37 +45,21 @@ docker stop abase-0.1.0-b4
 docker rm abase-0.1.0-b4
 
 echo
-echo "Installing and starting abase-0.1.0-b4 from ewsdocker/ldc-foundation:abase-0.1.0-b4"
+echo "Installing and starting abase-0.1.0-b4 from ewsdocker/ldc-foundation:base-0.1.0-b4"
 echo
 
 docker run \
    -d \
    --rm \
-   \
-   -e RUN_APP="/bin/bash" \
-   \
-   -e LMS_BASE="${HOME}/.local" \
-   -e LMS_HOME="${HOME}" \
-   -e LMS_CONF="${HOME}/.config" \
-   \
-   -v /etc/localtime:/etc/localtime:ro \
-   \
-   -v ${HOME}/bin:/userbin \
-   -v ${HOME}/.local:/usrlocal \
-   -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-foundation-abase-0.1.0:${HOME} \
-   -v ${HOME}/.config/docker/ldc-foundation-abase-0.1.0/workspace:/workspace \
-   \
-   --name abase-0.1.0-b4 \
- ewsdocker/ldc-foundation:abase-0.1.0-b4
+
 [[ $? -eq 0 ]] ||
  {
- 	echo "Unable to install/run abase-0.1.0-b4 from ewsdocker/ldc-foundation:abase-0.1.0-b4"
+ 	echo "Unable to install/run abase-0.1.0-b4 from ewsdocker/ldc-foundation:base-0.1.0-b4"
  	exit 2
  }
 
 echo
-echo "Successfully installed abase-0.1.0-b4 from ewsdocker/ldc-foundation:abase-0.1.0-b4"
+echo "Successfully installed abase-0.1.0-b4 from ewsdocker/ldc-foundation:base-0.1.0-b4"
 echo
 
 exit 0

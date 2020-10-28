@@ -2,7 +2,7 @@
 # ========================================================================================
 #
 #    Dockerfile
-#      Dockerfile for ldc-alpine:htop container - htop display for docker host.
+#      Dockerfile for ldc-console:htop container - htop display for docker host.
 #
 #    Example "run htop inside a container" from the docker run reference at
 #        https://docs.docker.com/engine/reference/run/#example-run-htop-inside-a-container
@@ -14,7 +14,7 @@
 # @copyright © 2018-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
-# @subpackage Dockerfile
+# @subpackage ldc-console
 #
 # ========================================================================================
 #
@@ -40,12 +40,148 @@
 # ========================================================================================
 # ========================================================================================
 #
-#  docker run -it --rm --pid=host --userns=host --name=htop ewsdocker/ldc-alpine:htop-0.1.0-b4
+#  docker run -it --rm --pid=host --userns=host --name=htop ewsdocker/ldc-console:htop-0.1.0-b4
 #
 # ========================================================================================
-FROM  ewsdocker/alpine-base:3.10.0
 
-RUN apk add --update htop \
- && rm -rf /var/cache/apk/*
- 
-CMD ["htop"]
+ARG FROM_REPO="ewsdocker"
+ARG FROM_PARENT="ldc-foundation"
+ARG FROM_VERS="base"
+ARG FROM_EXT="-0.1.0"
+ARG FROM_EXT_MOD="-b4"
+
+FROM ${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
+
+# =========================================================================
+
+ARG FROM_REPO
+ARG FROM_PARENT
+ARG FROM_VERS
+ARG FROM_EXT
+ARG FROM_EXT_MOD
+
+# =========================================================================
+
+ARG DNAME
+ARG RUN_APP
+
+# =========================================================================
+
+ARG BUILD_REGISTRY
+ARG BUILD_REPO
+
+ARG BUILD_NAME 
+ARG BUILD_VERSION
+ARG BUILD_VERS_EXT
+ARG BUILD_EXT_MOD
+
+# =========================================================================
+
+ARG BUILD_TEMPLATE
+ARG BUILD_DAEMON
+
+# =========================================================================
+
+ARG BUILD_CATEGORIES
+ARG BUILD_DESKTOP
+ARG BUILD_ICON
+
+# =========================================================================
+
+ARG OPT_DEBUG
+ARG OPT_TIMEOUT
+ARG OPT_QUIET
+
+# =========================================================================
+
+ENV DSTACK=${DNAME:-"AHTOP"}
+
+# =========================================================================
+
+ENV \
+    LMS_DAEMON=${BUILD_DAEMON:-"0"} \
+    LMS_TEMPLATE=${BUILD_TEMPLATE:-"console"} \
+    LRUN_APP=${RUN_APP:-"htop"} \
+    \
+    LMSOPT_TIMEOUT=${OPT_TIMEOUT:-"30"} \
+    LMSOPT_QUIET=${OPT_QUIET:-"1"} \
+    LMSOPT_DEBUG=${OPT_DEBUG:-"0"} \
+    \
+    LMS_BASE="/usr/local" \
+    LMS_HOME= \
+    LMS_CONF= \
+    \
+    LMS_CATEGORIES=${BUILD_CATEGORIES:-"Internet"} \
+    LMS_DESKTOP=${BUILD_DESKTOP:-"ahtop"} \
+    LMS_ICON=${BUILD_ICON:-"default.png"} \
+    \
+    LMS_FROM="${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}" \
+    LMS_PARENT="${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}" \
+    \
+    LMS_REGISTRY=${BUILD_REGISTRY:-""} \
+    LMS_REPO=${BUILD_REPO:-"ewsdocker"} \
+    LMS_NAME=${BUILD_NAME:-"ldc-console"} \
+    LMS_VERSION=${BUILD_VERSION:-"htop"} \
+    LMS_VERS_X=${BUILD_VERS_EXT:-"-0.1.0"} \
+    LMS_VERS_MOD=${BUILD_EXT_MOD:-"-b4"} 
+
+ENV LMS_VERS_EXT="${LMS_VERS_X}${LMS_VERS_MOD}" 
+
+ENV LMS_PACKAGE="${LMS_PARENT}, ${LMS_DESKTOP}${LMS_VERS_EXT}"
+
+ENV LMS_RUN_NAME="${LMS_NAME}-${LMS_VERSION}${LMS_VERS_EXT}" \
+    LMS_DOCKER_NAME="${LMS_NAME}:${LMS_VERSION}${LMS_VERS_EXT}"
+
+ENV LMS_DOCKER="${LMS_REPO}/${LMS_DOCKER_NAME}"
+
+# =========================================================================
+
+COPY scripts/. /
+
+# =========================================================================
+
+RUN chmod -R 775 /usr/local/bin \
+ \
+ && apk add --update htop su-exec \
+ \
+ && rm -rf /var/cache/apk/* \
+ \
+ # ========================================================================
+ #
+ #   setup libraries and applications to run
+ #
+ # ========================================================================
+ && mkdir -p /usr/local/bin \
+ && mkdir -p /usr/bin/lms \
+ && mkdir -p /usr/local/lib/lms/tests \
+ && mkdir -p /etc/lms \
+ \
+# && chmod +x /my_init \
+# && chmod +x /my_service \
+ \
+ && cp /usr/bin/lms/lms-setup.sh /etc/run_once/01_lms-setup.sh \
+ && chmod +x /etc/run_once/*.sh \
+ && chmod +x /etc/lms/*.sh \
+ \
+ && chmod +x /usr/local/bin/*.* \
+ && chmod +x /usr/local/bin/* \
+ \
+ && chmod +x /usr/bin/lms/*.* \
+ && chmod +x /usr/bin/lms/* \
+ \
+ && chmod +x /usr/local/lib/lms/tests/*.sh \
+ \
+ && printf "${LMS_DOCKER} (${LMS_PACKAGE}), %s @ %s\n" `date '+%Y-%m-%d'` `date '+%H:%M:%S'` >> /etc/ewsdocker-builds.txt 
+
+# =========================================================================
+
+VOLUME /workspace
+VOLUME /conf
+VOLUME /usrlocal
+
+ENV HOME /root
+WORKDIR /root
+
+# =========================================================================
+
+CMD ["/sbin/su-exec", "root", "htop"]

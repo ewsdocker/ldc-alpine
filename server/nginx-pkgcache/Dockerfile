@@ -2,7 +2,7 @@
 # ========================================================================================
 #
 #    Dockerfile
-#      Dockerfile for ldc-alpine:anginx-pkgcache container.
+#      Dockerfile for ldc-server:nginx-pkgcache container.
 #
 # ========================================================================================
 #
@@ -11,7 +11,7 @@
 # @copyright © 2018-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
-# @subpackage Dockerfile
+# @subpackage ldc-server
 #
 # ========================================================================================
 #
@@ -37,7 +37,7 @@
 # ========================================================================================
 # ========================================================================================
 #
-#	Portions of ldc-alpine:anginx-pkgcache are
+#	Portions of ldc-server:nginx-pkgcache are
 #
 #	Copyright (C) 2011-2016 Nginx, Inc.
 #	All rights reserved.
@@ -67,8 +67,8 @@
 # ========================================================================================
 
 ARG FROM_REPO="ewsdocker"
-ARG FROM_PARENT="ldc-alpine"
-ARG FROM_VERS="anginx"
+ARG FROM_PARENT="ldc-server"
+ARG FROM_VERS="nginx"
 ARG FROM_EXT="-0.1.0"
 ARG FROM_EXT_MOD="-b4"
 
@@ -134,7 +134,7 @@ ENV \
     LMS_CONF= \
     \
     LMS_CATEGORIES=${BUILD_CATEGORIES:-"Internet"} \
-    LMS_DESKTOP=${BUILD_DESKTOP:-"ldc-alpine-anginx-pkgcache"} \
+    LMS_DESKTOP=${BUILD_DESKTOP:-"ldc-server-nginx-pkgcache"} \
     LMS_ICON=${BUILD_ICON:-"default.png"} \
     \
     LMS_FROM="${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}" \
@@ -142,8 +142,8 @@ ENV \
     \
     LMS_REGISTRY=${BUILD_REGISTRY:-""} \
     LMS_REPO=${BUILD_REPO:-"ewsdocker"} \
-    LMS_NAME=${BUILD_NAME:-"ldc-alpine"} \
-    LMS_VERSION=${BUILD_VERSION:-"anginx-pkgcache"} \
+    LMS_NAME=${BUILD_NAME:-"ldc-server"} \
+    LMS_VERSION=${BUILD_VERSION:-"nginx-pkgcache"} \
     LMS_VERS_X=${BUILD_VERS_EXT:-"-0.1.0"} \
     LMS_VERS_MOD=${BUILD_EXT_MOD:-"-b4"} 
 

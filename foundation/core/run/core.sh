@@ -2,12 +2,12 @@
 # ========================================================================================
 # ========================================================================================
 #
-#      Run/Install file for acore-0.1.0-b4 from ldc-foundation:acore-0.1.0-b4.
+#      Run/Install file for acore-0.1.0-b4 from ldc-foundation:core-0.1.0-b4.
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version acore-0.1.0-b4
+# @version core-0.1.0-b4
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
@@ -45,7 +45,7 @@ docker stop acore-0.1.0-b4
 docker rm acore-0.1.0-b4
 
 echo
-echo "Installing and starting acore-0.1.0-b4 from ewsdocker/ldc-foundation:acore-0.1.0-b4"
+echo "Installing and starting acore-0.1.0-b4 from ewsdocker/ldc-foundation:core-0.1.0-b4"
 echo
 
 docker run \
@@ -59,19 +59,19 @@ docker run \
    -v ${HOME}/bin:/userbin \
    -v ${HOME}/.local:/usrlocal \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-foundation-acore-0.1.0:${HOME} \
-   -v ${HOME}/.config/docker/ldc-foundation-acore-0.1.0/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-foundation-core-0.1.0:${HOME} \
+   -v ${HOME}/.config/docker/ldc-foundation-core-0.1.0/workspace:/workspace \
    \
    --name acore-0.1.0-b4 \
- ewsdocker/ldc-foundation:acore-0.1.0-b4
+ ewsdocker/ldc-foundation:core-0.1.0-b4
 [[ $? -eq 0 ]] ||
  {
- 	echo "Unable to install/run acore-0.1.0-b4 from ewsdocker/ldc-foundation:acore-0.1.0-b4"
+ 	echo "Unable to install/run acore-0.1.0-b4 from ewsdocker/ldc-foundation:core-0.1.0-b4"
  	exit 2
  }
 
 echo
-echo "Successfully installed acore-0.1.0-b4 from ewsdocker/ldc-foundation:acore-0.1.0-b4"
+echo "Successfully installed acore-0.1.0-b4 from ewsdocker/ldc-foundation:core-0.1.0-b4"
 echo
 
 exit 0
