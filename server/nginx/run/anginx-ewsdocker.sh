@@ -2,16 +2,16 @@
 # ========================================================================================
 # ========================================================================================
 #
-#      Run/Install file for ldc-server:httpd-0.1.0-b4
+#      Run/Install file for anginx-ewsdocker from ldc-server:nginx-0.1.0-b4.
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version httpd
+# @version anginx-ewsdocker
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
-# @package httpd
-# @subpackage run
+# @package ldc-alpine
+# @subpackage ldc-server
 #
 # ========================================================================================
 #
@@ -35,21 +35,26 @@
 #   <http://www.gnu.org/licenses/>.
 #
 # ========================================================================================
+#
+#	docker network create -d bridge --subnet=172.33.0.0/16 nginx-net
+#
+# ========================================================================================
 # ========================================================================================
 
 echo
-echo "Stopping and removing httpd"
+echo "Stopping and removing anginx-ewsdocker"
 echo
 
-docker stop httpd
-docker rm httpd
+docker stop anginx-ewsdocker
+docker rm anginx-ewsdocker
 
 echo
-echo "Installing and starting httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
+echo "Installing and starting anginx-ewsdocker from ewsdocker/ldc-server:nginx-0.1.0-b4"
 echo
 
 docker run \
    -d \
+   \
    --restart unless-stopped \
    \
    -e LMS_BASE="${HOME}/.local" \
@@ -58,29 +63,27 @@ docker run \
    \
    -v /etc/localtime:/etc/localtime:ro \
    \
+   -v ${HOME}/Development/ewsdocker:/usr/share/nginx/html \
+   -p 80:80 \
+   \
    -v ${HOME}/bin:/userbin \
    -v ${HOME}/.local:/usrlocal \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-server-httpd-0.1.0:/root \
-   -v ${HOME}/.config/docker/ldc-server-httpd-0.1.0/workspace:/workspace \
-   \
-   -v ${HOME}/Development/ewsldc/ldc-development/web/docs:/usr/local/apache2/htdocs/ \
-   \
-   -p 80:80/tcp \
-   -p 443:443/tcp \
+   -v ${HOME}/.config/docker/anginx-ewsdocker:${HOME} \
+   -v ${HOME}/.config/docker/anginx-ewsdocker/workspace:/workspace \
    \
    --network=webnet \
    \
-   --name httpd \
- ewsdocker/ldc-server:httpd-0.1.0-b4
+   --name anginx-ewsdocker \
+ ewsdocker/ldc-server:nginx-0.1.0-b4
 [[ $? -eq 0 ]] ||
  {
- 	echo "Unable to install/run httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
+ 	echo "Unable to install/run anginx-ewsdocker from ewsdocker/ldc-server:nginx-0.1.0-b4"
  	exit 2
  }
- 
+
 echo
-echo "Successfully installed httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
+echo "Successfully installed anginx-ewsdocker from ewsdocker/ldc-server:nginx-0.1.0-b4"
 echo
 
 exit 0

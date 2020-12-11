@@ -63,6 +63,7 @@ docker run \
    \
    -v /etc/localtime:/etc/localtime:ro \
    --mount source=nginx-html,target=/usr/share/nginx/html \
+   -p 127.0.0.1:8000:80/tcp \
    \
    -v ${HOME}/bin:/userbin \
    -v ${HOME}/.local:/usrlocal \
@@ -70,7 +71,7 @@ docker run \
    -v ${HOME}/.config/docker/ldc-server-nginx-0.1.0:${HOME} \
    -v ${HOME}/.config/docker/ldc-server-nginx-0.1.0/workspace:/workspace \
    \
-   --network=nginx-net \
+   --network=webnet \
    \
    --name anginx-0.1.0-b4 \
  ewsdocker/ldc-server:nginx-0.1.0-b4

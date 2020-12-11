@@ -51,9 +51,9 @@ FROM ${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
 
 # ========================================================================================
 #
-# docker build --file=Dockerfile -t ewsdocker/httpd-alpine:httpd-2.4.46 .
+# docker build --file=Dockerfile -t ewsdocker/ldc-server:httpd-0.1.0-b4 .
 #
-# docker run -dit --name httpd -p 80:80 -v ${HOME}/public_html/:/usr/local/apache2/htdocs/ ewsdocker/httpd-alpine:httpd-2.4.46
+# docker run -dit --name httpd-0.1.0-b4 -p 80:80 -v ${HOME}/public_html/:/usr/local/apache2/htdocs/ ewsdocker/ldc-server:httpd-0.1.0-b4
 #
 # ========================================================================================
 
@@ -125,10 +125,10 @@ ENV \
     LMS_REGISTRY=${BUILD_REGISTRY:-""} \
     LMS_REPO=${BUILD_REPO:-"ewsdocker"} \
     \
-    LMS_NAME=${BUILD_NAME:-"httpd-alpine"} \
+    LMS_NAME=${BUILD_NAME:-"ldc-server"} \
     LMS_VERSION=${BUILD_VERSION:-"httpd"} \
-    LMS_VERS_X=${BUILD_VERS_EXT:-"-2.4.46"} \
-    LMS_VERS_MOD=${BUILD_EXT_MOD:-""} 
+    LMS_VERS_X=${BUILD_VERS_EXT:-"-0.1.0"} \
+    LMS_VERS_MOD=${BUILD_EXT_MOD:-"-b4"} 
 
 ENV LMS_VERS_EXT="${LMS_VERS_X}${LMS_VERS_MOD}" \
     LMS_PACKAGE="${LMS_PARENT}, ${LMS_DESKTOP} ${EC_RELEASE}-${EC_VERS}"
@@ -152,7 +152,6 @@ VOLUME /workspace
 # =========================================================================
 
 COPY scripts/. /
-COPY setup/. /dockerSetup/
 
 # =========================================================================
 

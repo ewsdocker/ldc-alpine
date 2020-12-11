@@ -2,7 +2,7 @@
 # ========================================================================================
 # ========================================================================================
 #
-#    build/anginx-pkgcache.sh
+#    build/alpine-nginx-pkgcache.sh
 #      Build/Installation file for ldc-server:nginx-pkgcache-0.1.0-b4
 #
 # ========================================================================================
@@ -40,11 +40,11 @@
 cd ~/Development/ewsldc/ldc-alpine/server/nginx-pkgcache
 
 echo
-echo "Stopping and removing anginx-pkgcache-0.1.0-b4"
+echo "Stopping and removing alpine-nginx-pkgcache-0.1.0-b4"
 echo
 
-docker stop anginx-pkgcache-0.1.0-b4
-docker rm anginx-pkgcache-0.1.0-b4
+docker stop alpine-nginx-pkgcache-0.1.0-b4
+docker rm alpine-nginx-pkgcache-0.1.0-b4
 
 echo
 echo "Removing ldc-server:nginx-pkgcache-0.1.0-b4"

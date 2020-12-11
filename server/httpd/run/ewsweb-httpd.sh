@@ -2,16 +2,16 @@
 # ========================================================================================
 # ========================================================================================
 #
-#      Run/Install file for ldc-server:httpd-0.1.0-b4
+#      Run/Install file for ldc-server:ewsweb-httpd
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version httpd
+# @version ewsweb-httpd
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package httpd
-# @subpackage run
+# @subpackage build
 #
 # ========================================================================================
 #
@@ -38,14 +38,14 @@
 # ========================================================================================
 
 echo
-echo "Stopping and removing httpd"
+echo "Stopping and removing ewsweb-httpd"
 echo
 
-docker stop httpd
-docker rm httpd
+docker stop ewsweb-httpd
+docker rm ewsweb-httpd
 
 echo
-echo "Installing and starting httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
+echo "Installing and starting ewsweb-httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
 echo
 
 docker run \
@@ -71,16 +71,16 @@ docker run \
    \
    --network=webnet \
    \
-   --name httpd \
+   --name web-httpd \
  ewsdocker/ldc-server:httpd-0.1.0-b4
 [[ $? -eq 0 ]] ||
  {
- 	echo "Unable to install/run httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
+ 	echo "Unable to install/run ewsweb-httpd from ewsdocker/ldc-server:httpd"
  	exit 2
  }
  
 echo
-echo "Successfully installed httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
+echo "Successfully installed ewsweb-httpd from ewsdocker/ldc-server:httpd"
 echo
 
 exit 0

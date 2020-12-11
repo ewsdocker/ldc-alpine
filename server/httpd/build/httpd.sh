@@ -3,12 +3,12 @@
 # ========================================================================================
 #
 #    build-httpd
-#      Build/Installation file for httpd-2.4.46-alpine.
+#      Build/Installation file for httpd-0.1.0-b4-alpine.
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version httpd-2.4.46
+# @version httpd-0.1.0-b4
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
@@ -39,19 +39,20 @@
 # ========================================================================================
 
 echo
-echo "Stopping and removing httpd-2.4.46"
+echo "Stopping and removing httpd-0.1.0-b4"
 echo
 
-docker stop httpd-2.4.46 rm httpd-2.4.46
+docker stop httpd-0.1.0-b4 
+docker rm httpd-0.1.0-b4
 
 echo
-echo "Removing ldc-alpine:httpd-2.4.46"
+echo "Removing ldc-server:httpd-0.1.0-b4"
 echo
 
-docker rmi ewsdocker/ldc-alpine:httpd-2.4.46
+docker rmi ewsdocker/ldc-server:httpd-0.1.0-b4
 
 echo
-echo "Building ldc-alpine:httpd-2.4.46"
+echo "Building ldc-server:httpd-0.1.0-b4"
 echo
 
 docker build \
@@ -60,27 +61,27 @@ docker build \
   --build-arg BUILD_DAEMON="1" \
   --build-arg BUILD_TEMPLATE="daemon" \
   \
-  --build-arg BUILD_NAME="ldc-alpine" \
+  --build-arg BUILD_NAME="ldc-server" \
   --build-arg BUILD_VERSION="httpd" \
-  --build-arg BUILD_VERS_EXT="-2.4.46" \
-  --build-arg BUILD_EXT_MOD="" \
+  --build-arg BUILD_VERS_EXT="-0.1.0" \
+  --build-arg BUILD_EXT_MOD="-b4" \
   \
   --build-arg FROM_REPO="" \
-  --build-arg FROM_PARENT="ldc-alpine" \
-  --build-arg FROM_VERS="httpd" \
-  --build-arg FROM_EXT="-2.4.46" \
+  --build-arg FROM_PARENT="httpd" \
+  --build-arg FROM_VERS="2.4.46" \
+  --build-arg FROM_EXT="-alpine" \
   --build-arg FROM_EXT_MOD="" \
   \
   --file=Dockerfile \
-  -t ewsdocker/ldc-alpine:httpd-2.4.46 .
+  -t ewsdocker/ldc-server:httpd-0.1.0-b4 .
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-alpine:httpd-2.4.46 failed"
+ 	echo "ewsdocker/ldc-server:httpd-0.1.0-b4 failed"
  	exit 1
  }
 
 echo
-echo "Completed build of ldc-alpine from ewsdocker/ldc-alpine:httpd-2.4.46"
+echo "Completed build of ldc-server:httpd-0.1.0-b4 from httpd:2.4.46-alpine"
 echo
 
-. ../run/httpd.sh
+. run/httpd.sh

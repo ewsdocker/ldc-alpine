@@ -3,12 +3,12 @@
 # ========================================================================================
 #
 #    run anginx-pkgcache.sh
-#      Run/Installation file for ldc-server:nginx-pkgcache-0.1.0-b4
+#      Run/Installation file for ldc-server:nginx-pkgcache
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version ldc-server:nginx-pkgcache-0.1.0-b4
+# @version ldc-server:nginx-pkgcache
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
@@ -39,14 +39,14 @@
 # ========================================================================================
 
 echo
-echo "Stopping and removing anginx-pkgcache-0.1.0-b4"
+echo "Stopping and removing anginx-pkgcache"
 echo
 
-docker stop anginx-pkgcache-0.1.0-b4
-docker rm anginx-pkgcache-0.1.0-b4
+docker stop alpine-nginx-pkgcache
+docker rm alpine-nginx-pkgcache
 
 echo
-echo "Installing ldc-server-nginx-pkgcache-0.1.0-b4 from ldc-server:nginx-pkgcache-0.1.0-b4"
+echo "Installing alpine-nginx-pkgcache from ldc-server:nginx-pkgcache-0.1.0-b4"
 echo
 
 docker run \
@@ -69,16 +69,16 @@ docker run \
    \
    --network=pkgnet \
    \
-   --name anginx-pkgcache-0.1.0-b4 \
+   --name alpine-nginx-pkgcache \
  ewsdocker/ldc-server:nginx-pkgcache-0.1.0-b4
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-server:nginx-pkgcache-0.1.0-b4 failed"
+ 	echo "alpine-nginx-pkgcache failed"
  	exit 2
  }
 
 echo
-echo "Installation of ldc-server:nginx-pkgcache-0.1.0-b4 was successful"
+echo "Installation of ldc-server:nginx-pkgcache as alpine-nginx-pkgcache was successful"
 echo
 
 exit 0

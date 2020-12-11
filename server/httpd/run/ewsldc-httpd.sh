@@ -2,16 +2,16 @@
 # ========================================================================================
 # ========================================================================================
 #
-#      Run/Install file for ldc-server:httpd-0.1.0-b4
+#      Run/Install file for ldc-server:httpd-ewsldc-0.1.0-b4
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version httpd
+# @version httpd-ewsldc-0.1.0-b4
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package httpd
-# @subpackage run
+# @subpackage build
 #
 # ========================================================================================
 #
@@ -38,14 +38,14 @@
 # ========================================================================================
 
 echo
-echo "Stopping and removing httpd"
+echo "Stopping and removing httpd-ewsldc-0.1.0-b4"
 echo
 
-docker stop httpd
-docker rm httpd
+docker stop httpd-ewsldc-0.1.0-b4
+docker rm httpd-ewsldc-0.1.0-b4
 
 echo
-echo "Installing and starting httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
+echo "Installing and starting httpd-ewsldc-0.1.0-b4 from ewsdocker/ldc-server:httpd-ewsldc-0.1.0-b4"
 echo
 
 docker run \
@@ -61,26 +61,26 @@ docker run \
    -v ${HOME}/bin:/userbin \
    -v ${HOME}/.local:/usrlocal \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-server-httpd-0.1.0:/root \
-   -v ${HOME}/.config/docker/ldc-server-httpd-0.1.0/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-server-httpd-ewsldc-0.1.0:/root \
+   -v ${HOME}/.config/docker/ldc-server-httpd-ewsldc-0.1.0/workspace:/workspace \
    \
-   -v ${HOME}/Development/ewsldc/ldc-development/web/docs:/usr/local/apache2/htdocs/ \
+   -v ${HOME}/Development/ewsldc:/usr/local/apache2/htdocs/ \
    \
-   -p 80:80/tcp \
-   -p 443:443/tcp \
+   -p 90:80/tcp \
+   -p 9090:443/tcp \
    \
    --network=webnet \
    \
-   --name httpd \
+   --name ewsldc-httpd \
  ewsdocker/ldc-server:httpd-0.1.0-b4
 [[ $? -eq 0 ]] ||
  {
- 	echo "Unable to install/run httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
+ 	echo "Unable to install/run httpd-ewsldc-0.1.0-b4 from ewsdocker/ldc-server:httpd-0.1.0-b4"
  	exit 2
  }
  
 echo
-echo "Successfully installed httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
+echo "Successfully installed httpd-ewsldc-0.1.0-b4 from ewsdocker/ldc-server:httpd-0.1.0-b4"
 echo
 
 exit 0

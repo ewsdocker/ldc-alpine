@@ -73,7 +73,7 @@ docker build \
   --build-arg FROM_EXT="-0.1.0" \
   --build-arg FROM_EXT_MOD="-b4" \
   \
-  --network=nginx-net \
+  --network=webnet \
   \
   --file=Dockerfile \
   -t ewsdocker/ldc-server:nginx-0.1.0-b4 .
