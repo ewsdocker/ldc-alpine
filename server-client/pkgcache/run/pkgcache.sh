@@ -1,4 +1,7 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ========================================================================================
 # ========================================================================================
 #
@@ -39,20 +42,19 @@
 # ========================================================================================
 
 echo
-echo "Stopping and removing apkgcache-client-0.1.0-b4"
+echo "Stopping and removing apkgcache-client${ldcvers}${ldcextv}"
 echo
 
-docker stop apkgcache-client-0.1.0-b4
-docker rm apkgcache-client-0.1.0-b4
+docker stop apkgcache-client
+docker rm apkgcache-client
 
 echo
-echo "Installing apkgcache-client-0.1.0-b4 from ldc-server-client:pkgcache-0.1.0-b4"
+echo "Installing apkgcache-client from ldc-server-client:pkgcache${ldcvers}${ldcextv}"
 echo
 
 docker run \
    \
    -it \
-   --rm \
    \
    -e RUN_APP="/bin/bash" \
    \
@@ -68,21 +70,21 @@ docker run \
    -v ${HOME}/bin:/userbin \
    -v ${HOME}/.local:/usrlocal \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-server-client-pkgcache-0.1.0:${HOME} \
-   -v ${HOME}/.config/docker/ldc-server-client-pkgcache-0.1.0/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-server-client-pkgcache${ldcvers}:${HOME} \
+   -v ${HOME}/.config/docker/ldc-server-client-pkgcache${ldcvers}/workspace:/workspace \
    \
-   --network=pkgnet \
+   --network="${pkgnet}" \
    \
-   --name apkgcache-client-0.1.0-b4 \
- ewsdocker/ldc-server-client:pkgcache-0.1.0-b4
+   --name anginx-pkgcache-client \
+ ewsdocker/ldc-server-client:pkgcache${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-server-client:pkgcache-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-server-client:pkgcache${ldcvers}${ldcextv} failed"
  	exit 2
  }
 
 echo
-echo "Installation of apkgcache-client-0.1.0-b4 was successful"
+echo "Installation of apkgcache-client${ldcvers}${ldcextv} was successful"
 echo
 
 exit 0

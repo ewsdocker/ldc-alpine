@@ -1,4 +1,7 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ========================================================================================
 # ========================================================================================
 #
@@ -8,7 +11,7 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version ldc-server-client:pkgcache-0.1.0-b4
+# @version ldc-server-client:pkgcache${ldcvers}${ldcextv}
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
@@ -40,20 +43,20 @@
 cd ~/Development/ewsldc/ldc-alpine/server-client/pkgcache
 
 echo
-echo "Stopping and removing apkgcache-client-0.1.0-b4"
+echo "Stopping and removing anginx-pkgcache-client"
 echo
 
-docker stop apkgcache-client-0.1.0-b4
-docker rm apkgcache-client-0.1.0-b4
+docker stop anginx-pkgcache-client
+docker rm anginx-pkgcache-client
 
 echo
-echo "Removing ldc-server-client:pkgcache-0.1.0-b4"
+echo "Removing ldc-server-client:pkgcache${ldcvers}${ldcextv}"
 echo
 
-docker rmi ewsdocker/ldc-server-client:pkgcache-0.1.0-b4
+docker rmi ewsdocker/ldc-server-client:pkgcache${ldcvers}${ldcextv}
 
 echo
-echo "Building ewsdocker/ldc-server-client:pkgcache-0.1.0-b4"
+echo "Building ewsdocker/ldc-server-client:pkgcache${ldcvers}${ldcextv}"
 echo
 
 docker build \
@@ -64,27 +67,27 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-server-client" \
   --build-arg BUILD_VERSION="pkgcache" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-server-client" \
   --build-arg FROM_VERS="nginx" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_EXT="${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
   --network=pkgnet \
   \
   --file=Dockerfile \
-  -t ewsdocker/ldc-server-client:pkgcache-0.1.0-b4 .
+  -t ewsdocker/ldc-server-client:pkgcache${ldcvers}${ldcextv} .
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-server-client:pkgcache-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-server-client:pkgcache${ldcvers}${ldcextv} failed"
  	exit 1
  }
 
 echo
-echo "Completed build of ldc-server-client:pkgcache-0.1.0-b4 from ldc-server-client:nginx-0.1.0-b4"
+echo "Completed build of ldc-server-client:pkgcache${ldcvers}${ldcextv} from ldc-server-client:nginx${ldcvers}${ldcextv}"
 echo
 
 . run/pkgcache.sh

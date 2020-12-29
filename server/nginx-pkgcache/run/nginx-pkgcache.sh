@@ -1,4 +1,9 @@
 #!/bin/bash
+
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
+
 # ========================================================================================
 # ========================================================================================
 #
@@ -42,11 +47,11 @@ echo
 echo "Stopping and removing anginx-pkgcache"
 echo
 
-docker stop alpine-nginx-pkgcache
-docker rm alpine-nginx-pkgcache
+docker stop anginx-pkgcache
+docker rm anginx-pkgcache
 
 echo
-echo "Installing alpine-nginx-pkgcache from ldc-server:nginx-pkgcache-0.1.0-b4"
+echo "Installing anginx-pkgcache from ldc-server:nginx-pkgcache${ldcvers}${ldcextv}"
 echo
 
 docker run \
@@ -64,21 +69,21 @@ docker run \
    -v ${HOME}/bin:/userbin \
    -v ${HOME}/.local:/usrlocal \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-server-nginx-pkgcache-0.1.0:${HOME} \
-   -v ${HOME}/.config/docker/ldc-server-nginx-pkgcache-0.1.0/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-server-nginx-pkgcache${ldcvers}:${HOME} \
+   -v ${HOME}/.config/docker/ldc-server-nginx-pkgcache${ldcvers}/workspace:/workspace \
    \
-   --network=pkgnet \
+   --network="${pkgnet}" \
    \
-   --name alpine-nginx-pkgcache \
- ewsdocker/ldc-server:nginx-pkgcache-0.1.0-b4
+   --name anginx-pkgcache \
+ ewsdocker/ldc-server:nginx-pkgcache${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "alpine-nginx-pkgcache failed"
+ 	echo "anginx-pkgcache failed"
  	exit 2
  }
 
 echo
-echo "Installation of ldc-server:nginx-pkgcache as alpine-nginx-pkgcache was successful"
+echo "Installation of ldc-server:nginx-pkgcache as anginx-pkgcache was successful"
 echo
 
 exit 0
