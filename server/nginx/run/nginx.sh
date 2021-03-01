@@ -8,14 +8,14 @@
 #
 # @author Jay Wheeler.
 # @version anginx-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-server
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -41,15 +41,17 @@
 # ========================================================================================
 # ========================================================================================
 
-echo
-echo "Stopping and removing anginx-0.1.0-b4"
-echo
-
-docker stop anginx-0.1.0-b4
-docker rm anginx-0.1.0-b4
+. ~/Development/ewsldc/ldc/ldc-common.sh
 
 echo
-echo "Installing and starting anginx-0.1.0-b4 from ewsdocker/ldc-server:nginx-0.1.0-b4"
+echo "Stopping and removing anginx${ldcvers}${ldcextv}"
+echo
+
+docker stop anginx${ldcvers}${ldcextv}
+docker rm anginx${ldcvers}${ldcextv}
+
+echo
+echo "Installing and starting anginx${ldcvers}${ldcextv} from ewsdocker/ldc-server:nginx${ldcvers}${ldcextv}"
 echo
 
 docker run \
@@ -66,23 +68,25 @@ docker run \
    -p 127.0.0.1:8000:80/tcp \
    \
    -v ${HOME}/bin:/userbin \
-   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-server-nginx-0.1.0:${HOME} \
-   -v ${HOME}/.config/docker/ldc-server-nginx-0.1.0/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-server-nginx${ldcvers}:${HOME} \
+   -v ${HOME}/.config/docker/ldc-server-nginx${ldcvers}/workspace:/workspace \
    \
    --network=webnet \
    \
-   --name anginx-0.1.0-b4 \
- ewsdocker/ldc-server:nginx-0.1.0-b4
+   --name anginx${ldcvers}${ldcextv} \
+ ewsdocker/ldc-server:nginx${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "Unable to install/run anginx-0.1.0-b4 from ewsdocker/ldc-server:nginx-0.1.0-b4"
+ 	echo "Unable to install/run anginx${ldcvers}${ldcextv} from ewsdocker/ldc-server:nginx${ldcvers}${ldcextv}"
  	exit 2
  }
 
 echo
-echo "Successfully installed anginx-0.1.0-b4 from ewsdocker/ldc-server:nginx-0.1.0-b4"
+echo "Successfully installed anginx${ldcvers}${ldcextv} from ewsdocker/ldc-server:nginx${ldcvers}${ldcextv}"
 echo
 
 exit 0

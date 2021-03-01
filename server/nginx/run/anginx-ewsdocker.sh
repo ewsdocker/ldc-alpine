@@ -67,7 +67,9 @@ docker run \
    -p 80:80 \
    \
    -v ${HOME}/bin:/userbin \
-   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
    -v ${HOME}/.config/docker:/conf \
    -v ${HOME}/.config/docker/anginx-ewsdocker:${HOME} \
    -v ${HOME}/.config/docker/anginx-ewsdocker/workspace:/workspace \

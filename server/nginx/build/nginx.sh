@@ -9,14 +9,14 @@
 #
 # @author Jay Wheeler.
 # @version ldc-server:nginx-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-server
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -37,23 +37,26 @@
 #
 # ========================================================================================
 # ========================================================================================
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 cd ~/Development/ewsldc/ldc-alpine/server/nginx
 
 echo
-echo "Stopping and removing anginx-0.1.0-b4"
+echo "Stopping and removing anginx${ldcvers}${ldcextv}"
 echo
 
-docker stop anginx-0.1.0-b4
-docker rm anginx-0.1.0-b4
+docker stop anginx${ldcvers}${ldcextv}
+docker rm anginx${ldcvers}${ldcextv}
 
 echo
-echo "Removing ldc-server:nginx-0.1.0-b4"
+echo "Removing ldc-server:nginx${ldcvers}${ldcextv}"
 echo
 
-docker rmi ewsdocker/ldc-server:nginx-0.1.0-b4
+docker rmi ewsdocker/ldc-server:nginx${ldcvers}${ldcextv}
 
 echo
-echo "Building ewsdocker/ldc-server:nginx-0.1.0-b4"
+echo "Building ewsdocker/ldc-server:nginx${ldcvers}${ldcextv}"
 echo
 
 docker build \
@@ -64,27 +67,27 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-server" \
   --build-arg BUILD_VERSION="nginx" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
-  --build-arg FROM_REPO="ewsdocker" \
-  --build-arg FROM_PARENT="ldc-foundation" \
-  --build-arg FROM_VERS="base" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_REPO="nimmis" \
+  --build-arg FROM_PARENT="alpine-micro" \
+  --build-arg FROM_VERS="${ldcalpine}" \
+  --build-arg FROM_EXT="" \
+  --build-arg FROM_EXT_MOD="" \
   \
-  --network=webnet \
+  --network="${webnet}" \
   \
   --file=Dockerfile \
-  -t ewsdocker/ldc-server:nginx-0.1.0-b4 .
+  -t ewsdocker/ldc-server:nginx${ldcvers}${ldcextv} .
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-server:nginx-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-server:nginx${ldcvers}${ldcextv} failed"
  	exit 1
  }
 
 echo
-echo "Completed build of ldc-server:nginx-0.1.0-b4 from ldc-foundation:base-0.1.0-b4"
+echo "Completed build of ldc-server:nginx${ldcvers}${ldcextv} from ldc-foundation:base${ldcvers}${ldcextv}"
 echo
 
 . run/nginx.sh

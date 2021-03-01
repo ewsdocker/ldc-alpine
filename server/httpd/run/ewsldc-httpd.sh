@@ -8,14 +8,14 @@
 #
 # @author Jay Wheeler.
 # @version httpd-ewsldc-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package httpd
 # @subpackage build
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -37,15 +37,17 @@
 # ========================================================================================
 # ========================================================================================
 
-echo
-echo "Stopping and removing httpd-ewsldc-0.1.0-b4"
-echo
-
-docker stop httpd-ewsldc-0.1.0-b4
-docker rm httpd-ewsldc-0.1.0-b4
+. ~/Development/ewsldc/ldc/ldc-common.sh
 
 echo
-echo "Installing and starting httpd-ewsldc-0.1.0-b4 from ewsdocker/ldc-server:httpd-ewsldc-0.1.0-b4"
+echo "Stopping and removing httpd-ewsldc${ldcvers}${ldcextv}"
+echo
+
+docker stop httpd-ewsldc${ldcvers}${ldcextv}
+docker rm httpd-ewsldc${ldcvers}${ldcextv}
+
+echo
+echo "Installing and starting httpd-ewsldc${ldcvers}${ldcextv} from ewsdocker/ldc-server:httpd-ewsldc${ldcvers}${ldcextv}"
 echo
 
 docker run \
@@ -59,28 +61,30 @@ docker run \
    -v /etc/localtime:/etc/localtime:ro \
    \
    -v ${HOME}/bin:/userbin \
-   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-server-httpd-ewsldc-0.1.0:/root \
-   -v ${HOME}/.config/docker/ldc-server-httpd-ewsldc-0.1.0/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-server-httpd-ewsldc${ldcvers}:/root \
+   -v ${HOME}/.config/docker/ldc-server-httpd-ewsldc${ldcvers}/workspace:/workspace \
    \
    -v ${HOME}/Development/ewsldc:/usr/local/apache2/htdocs/ \
    \
    -p 90:80/tcp \
    -p 9090:443/tcp \
    \
-   --network=webnet \
+   --network="${webnet}" \
    \
    --name ewsldc-httpd \
- ewsdocker/ldc-server:httpd-0.1.0-b4
+ ewsdocker/ldc-server:httpd${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "Unable to install/run httpd-ewsldc-0.1.0-b4 from ewsdocker/ldc-server:httpd-0.1.0-b4"
+ 	echo "Unable to install/run httpd-ewsldc${ldcvers}${ldcextv} from ewsdocker/ldc-server:httpd${ldcvers}${ldcextv}"
  	exit 2
  }
  
 echo
-echo "Successfully installed httpd-ewsldc-0.1.0-b4 from ewsdocker/ldc-server:httpd-0.1.0-b4"
+echo "Successfully installed httpd-ewsldc${ldcvers}${ldcextv} from ewsdocker/ldc-server:httpd${ldcvers}${ldcextv}"
 echo
 
 exit 0

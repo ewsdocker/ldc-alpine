@@ -37,23 +37,28 @@
 #
 # ========================================================================================
 # ========================================================================================
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 cd ~/Development/ewsldc/ldc-alpine/foundation/base
 
-echo
-echo "Stopping and removing base-0.1.0-b4"
-echo
-
-docker stop base-0.1.0-b4
-docker rm base-0.1.0-b4
+# ========================================================================================
 
 echo
-echo "Removing ldc-foundation:base-0.1.0-b4"
+echo "Stopping and removing base${ldcvers}${ldcextv}"
 echo
 
-docker rmi ewsdocker/ldc-foundation:base-0.1.0-b4
+docker stop base${ldcvers}${ldcextv}
+docker rm base${ldcvers}${ldcextv}
 
 echo
-echo "Building ewsdocker/ldc-foundation:base-0.1.0-b4"
+echo "Removing ldc-foundation:base${ldcvers}${ldcextv}"
+echo
+
+docker rmi ewsdocker/ldc-foundation:base${ldcvers}${ldcextv}
+
+echo
+echo "Building ewsdocker/ldc-foundation:base${ldcvers}${ldcextv}"
 echo
 
 docker build \
@@ -64,32 +69,32 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-foundation" \
   --build-arg BUILD_VERSION="base" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-foundation" \
   --build-arg FROM_VERS="core" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_EXT="${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
-  --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b4" \
+  --build-arg LIB_VERSION="${libver}" \
+  --build-arg LIB_VERS_MOD="${ldclib}" \
   --build-arg LIB_INSTALL="1" \
   \
-  --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
-  --network=pkgnet \
+  --build-arg LIB_HOST="${pkgserver}" \
+  --network="${pkgnet}" \
   \
   --file=Dockerfile \
-  -t ewsdocker/ldc-foundation:base-0.1.0-b4 .
+-t ewsdocker/ldc-foundation:base${ldcvers}${ldcextv} .
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-foundation:base-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-foundation:base${ldcvers}${ldcextv} failed"
  	exit 1
  }
 
 echo
-echo "Completed build of ldc-foundation:base-0.1.0-b4 from ldc-foundation:core-0.1.0-b4"
+echo "Completed build of ldc-foundation:base${ldcvers}${ldcextv} from ldc-foundation:core${ldcvers}${ldcextv}"
 echo
 
 . run/base.sh

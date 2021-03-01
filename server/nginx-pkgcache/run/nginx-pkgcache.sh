@@ -8,12 +8,12 @@
 # ========================================================================================
 #
 #    run anginx-pkgcache.sh
-#      Run/Installation file for ldc-server:nginx-pkgcache
+#      Run/Installation file for ldc-server:anginx-pkgcache
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version ldc-server:nginx-pkgcache
+# @version ldc-server:anginx-pkgcache
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
@@ -43,6 +43,8 @@
 # ========================================================================================
 # ========================================================================================
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 echo
 echo "Stopping and removing anginx-pkgcache"
 echo
@@ -62,15 +64,22 @@ docker run \
    -e LMS_HOME="${HOME}" \
    -e LMS_CONF="${HOME}/.config" \
    \
+   -e LMS_LIB="${libver}" \
+   -e LMS_VERS="${ldcvers}" \
+   -e LMS_EXTV="${ldcextv}" \
+   \
    -v /etc/localtime:/etc/localtime:ro \
    \
-   --mount source=pkgcache,target=/usr/share/nginx/html \
-   \
    -v ${HOME}/bin:/userbin \
+   \
    -v ${HOME}/.local:/usrlocal \
+   -v ${HOME}/.local/ewsldc/${libver}:/opt \
+   \
    -v ${HOME}/.config/docker:/conf \
    -v ${HOME}/.config/docker/ldc-server-nginx-pkgcache${ldcvers}:${HOME} \
    -v ${HOME}/.config/docker/ldc-server-nginx-pkgcache${ldcvers}/workspace:/workspace \
+   \
+   --mount source=pkgcache,target=/usr/share/nginx/html \
    \
    --network="${pkgnet}" \
    \

@@ -12,14 +12,14 @@
 #
 # @author Jay Wheeler.
 # @version ldc-server-client:pkgcache-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-server-client
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -42,14 +42,14 @@
 # ========================================================================================
 
 echo
-echo "Stopping and removing apkgcache-client${ldcvers}${ldcextv}"
+echo "Stopping and removing apkgcache"
 echo
 
-docker stop apkgcache-client
-docker rm apkgcache-client
+docker stop apkgcache
+docker rm apkgcache
 
 echo
-echo "Installing apkgcache-client from ldc-server-client:pkgcache${ldcvers}${ldcextv}"
+echo "Installing apkgcache client from ldc-server-client:pkgcache${ldcvers}${ldcextv}"
 echo
 
 docker run \
@@ -68,14 +68,16 @@ docker run \
    -v ${HOME}/Downloads:/downloads \
    \
    -v ${HOME}/bin:/userbin \
-   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-server-client-pkgcache${ldcvers}:${HOME} \
-   -v ${HOME}/.config/docker/ldc-server-client-pkgcache${ldcvers}/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-server-client-apkgcache${ldcvers}:${HOME} \
+   -v ${HOME}/.config/docker/ldc-server-client-apkgcache${ldcvers}/workspace:/workspace \
    \
    --network="${pkgnet}" \
    \
-   --name anginx-pkgcache-client \
+   --name apkgcache \
  ewsdocker/ldc-server-client:pkgcache${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
@@ -84,7 +86,7 @@ docker run \
  }
 
 echo
-echo "Installation of apkgcache-client${ldcvers}${ldcextv} was successful"
+echo "Installation of apkgcache was successful"
 echo
 
 exit 0

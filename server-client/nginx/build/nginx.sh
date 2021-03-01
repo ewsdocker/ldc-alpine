@@ -9,14 +9,14 @@
 #
 # @author Jay Wheeler.
 # @version ldc-server-client:nginx-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-server-client
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -37,23 +37,26 @@
 #
 # ========================================================================================
 # ========================================================================================
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 cd ~/Development/ewsldc/ldc-alpine/server-client/nginx
 
 echo
-echo "Stopping and removing anginx-client-0.1.0-b4"
+echo "Stopping and removing anginx-client${ldcvers}${ldcextv}"
 echo
 
-docker stop anginx-client-0.1.0-b4
-docker rm anginx-client-0.1.0-b4
+docker stop anginx-client${ldcvers}${ldcextv}
+docker rm anginx-client${ldcvers}${ldcextv}
 
 echo
-echo "Removing ldc-server-client:nginx-0.1.0-b4"
+echo "Removing ldc-server-client:nginx${ldcvers}${ldcextv}"
 echo
 
-docker rmi ewsdocker/ldc-server-client:nginx-0.1.0-b4
+docker rmi ewsdocker/ldc-server-client:nginx${ldcvers}${ldcextv}
 
 echo
-echo "Building ewsdocker/ldc-server-client:nginx-0.1.0-b4"
+echo "Building ewsdocker/ldc-server-client:nginx${ldcvers}${ldcextv}"
 echo
 
 docker build \
@@ -64,27 +67,27 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-server-client" \
   --build-arg BUILD_VERSION="nginx" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-foundation" \
   --build-arg FROM_VERS="base" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_EXT="${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
-  --network=nginx-net \
+  --network="${nginxnet}" \
   \
   --file=Dockerfile \
-  -t ewsdocker/ldc-server-client:nginx-0.1.0-b4 .
+  -t ewsdocker/ldc-server-client:nginx${ldcvers}${ldcextv} .
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-server-client:nginx-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-server-client:nginx${ldcvers}${ldcextv} failed"
  	exit 1
  }
 
 echo
-echo "Completed build of ldc-server-client:nginx-0.1.0-b4 from ldc-foundation:base-0.1.0-b4"
+echo "Completed build of ldc-server-client:nginx${ldcvers}${ldcextv} from ldc-foundation:base${ldcvers}${ldcextv}"
 echo
 
 . run/nginx.sh

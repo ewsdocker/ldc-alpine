@@ -3,20 +3,20 @@
 # ========================================================================================
 #
 #    build/core.sh
-#      Build/Installation file for ldc-foundation:core-0.1.0-b4
+#      Build/Installation file for ldc-foundation:core${ldcvers}${ldcextv}
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version ldc-foundation:core-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @version ldc-foundation:core${ldcvers}${ldcextv}
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-foundation
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -37,23 +37,28 @@
 #
 # ========================================================================================
 # ========================================================================================
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 cd ~/Development/ewsldc/ldc-alpine/foundation/core
 
-echo
-echo "Stopping and removing acore-0.1.0-b4"
-echo
-
-docker stop acore-0.1.0-b4
-docker rm acore-0.1.0-b4
+# ========================================================================================
 
 echo
-echo "Removing ldc-foundation:acore-0.1.0-b4"
+echo "Stopping and removing acore${ldcvers}${ldcextv}"
 echo
 
-docker rmi ewsdocker/ldc-foundation:core-0.1.0-b4
+docker stop acore${ldcvers}${ldcextv}
+docker rm acore${ldcvers}${ldcextv}
 
 echo
-echo "Building ewsdocker/ldc-foundation:core-0.1.0-b4"
+echo "Removing ldc-foundation:acore${ldcvers}${ldcextv}"
+echo
+
+docker rmi ewsdocker/ldc-foundation:core${ldcvers}${ldcextv}
+
+echo
+echo "Building ewsdocker/ldc-foundation:core${ldcvers}${ldcextv}"
 echo
 
 docker build \
@@ -64,25 +69,25 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-foundation" \
   --build-arg BUILD_VERSION="core" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="nimmis" \
   --build-arg FROM_PARENT="alpine-micro" \
-  --build-arg FROM_VERS="3.12" \
+  --build-arg FROM_VERS="${ldcalpine}" \
   --build-arg FROM_EXT="" \
   --build-arg FROM_EXT_MOD="" \
   \
   --file=Dockerfile \
-  -t ewsdocker/ldc-foundation:core-0.1.0-b4 .
+  -t ewsdocker/ldc-foundation:core${ldcvers}${ldcextv} .
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-foundation:core-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-foundation:core${ldcvers}${ldcextv} failed"
  	exit 1
  }
 
 echo
-echo "Completed build of ldc-foundation:core-0.1.0-b4 from ewsdocker/nimmis:alpine-micro-3.12"
+echo "Completed build of ldc-foundation:core${ldcvers}${ldcextv} from ewsdocker/nimmis:alpine-micro-3.12"
 echo
 
 . run/core.sh

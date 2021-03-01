@@ -12,14 +12,14 @@
 #
 # @author Jay Wheeler.
 # @version ldc-server-client:pkgcache${ldcvers}${ldcextv}
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-server-client
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -43,11 +43,11 @@
 cd ~/Development/ewsldc/ldc-alpine/server-client/pkgcache
 
 echo
-echo "Stopping and removing anginx-pkgcache-client"
+echo "Stopping and removing apkgcache"
 echo
 
-docker stop anginx-pkgcache-client
-docker rm anginx-pkgcache-client
+docker stop apkgcache
+docker rm apkgcache
 
 echo
 echo "Removing ldc-server-client:pkgcache${ldcvers}${ldcextv}"
@@ -60,7 +60,7 @@ echo "Building ewsdocker/ldc-server-client:pkgcache${ldcvers}${ldcextv}"
 echo
 
 docker build \
-  --build-arg DNAME="ANGINX-PKGCACHE" \
+  --build-arg DNAME="APKGCACHE" \
   \
   --build-arg BUILD_DAEMON="0" \
   --build-arg BUILD_TEMPLATE="console" \
@@ -76,7 +76,7 @@ docker build \
   --build-arg FROM_EXT="${ldcvers}" \
   --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
-  --network=pkgnet \
+  --network="${pkgnet}" \
   \
   --file=Dockerfile \
   -t ewsdocker/ldc-server-client:pkgcache${ldcvers}${ldcextv} .

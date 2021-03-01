@@ -8,14 +8,14 @@
 #
 # @author Jay Wheeler.
 # @version ldc-foundation-base-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-foundation
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -37,29 +37,51 @@
 # ========================================================================================
 # ========================================================================================
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
+cd ~/Development/ewsldc/ldc-alpine/foundation/base
+
+# ========================================================================================
+
 echo
-echo "Stopping and removing abase-0.1.0-b4"
+echo "Stopping and removing abase${ldcvers}${ldcextv}"
 echo
 
-docker stop abase-0.1.0-b4
-docker rm abase-0.1.0-b4
+docker stop abase${ldcvers}${ldcextv}
+docker rm abase${ldcvers}${ldcextv}
 
 echo
-echo "Installing and starting abase-0.1.0-b4 from ewsdocker/ldc-foundation:base-0.1.0-b4"
+echo "Installing and starting abase${ldcvers}${ldcextv} from ewsdocker/ldc-foundation:base${ldcvers}${ldcextv}"
 echo
 
 docker run \
    -d \
    --rm \
-
+   \
+   -e LMS_BASE="${HOME}/.local" \
+   \
+   -v /etc/localtime:/etc/localtime:ro \
+   \
+   -v ${HOME}/bin:/userbin \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
+   -v ${HOME}/.config/docker:/conf \
+   -v ${HOME}/.config/docker/ldc-foundation-base${ldcvers}:${HOME} \
+   -v ${HOME}/.config/docker/ldc-foundation-base${ldcvers}/workspace:/workspace \
+   \
+   --mount source=pkgcache,target=/usr/share/nginx/html \
+   \
+   --name abase${ldcvers}${ldcextv} \
+ ewsdocker/ldc-foundation:base${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "Unable to install/run abase-0.1.0-b4 from ewsdocker/ldc-foundation:base-0.1.0-b4"
+ 	echo "Unable to install/run abase${ldcvers}${ldcextv} from ewsdocker/ldc-foundation:base${ldcvers}${ldcextv}"
  	exit 2
  }
 
 echo
-echo "Successfully installed abase-0.1.0-b4 from ewsdocker/ldc-foundation:base-0.1.0-b4"
+echo "Successfully installed abase${ldcvers}${ldcextv} from ewsdocker/ldc-foundation:base${ldcvers}${ldcextv}"
 echo
 
 exit 0

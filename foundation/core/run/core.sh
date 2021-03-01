@@ -2,20 +2,20 @@
 # ========================================================================================
 # ========================================================================================
 #
-#      Run/Install file for acore-0.1.0-b4 from ldc-foundation:core-0.1.0-b4.
+#      Run/Install file for acore${ldcvers}${ldcextv} from ldc-foundation:core${ldcvers}${ldcextv}.
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
 # @version core-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-foundation
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -37,15 +37,19 @@
 # ========================================================================================
 # ========================================================================================
 
-echo
-echo "Stopping and removing acore-0.1.0-b4"
-echo
+. ~/Development/ewsldc/ldc/ldc-common.sh
 
-docker stop acore-0.1.0-b4
-docker rm acore-0.1.0-b4
+# ========================================================================================
 
 echo
-echo "Installing and starting acore-0.1.0-b4 from ewsdocker/ldc-foundation:core-0.1.0-b4"
+echo "Stopping and removing acore${ldcvers}${ldcextv}"
+echo
+
+docker stop acore${ldcvers}${ldcextv}
+docker rm acore${ldcvers}${ldcextv}
+
+echo
+echo "Installing and starting acore${ldcvers}${ldcextv} from ewsdocker/ldc-foundation:core${ldcvers}${ldcextv}"
 echo
 
 docker run \
@@ -57,21 +61,23 @@ docker run \
    -v /etc/localtime:/etc/localtime:ro \
    \
    -v ${HOME}/bin:/userbin \
-   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-foundation-core-0.1.0:${HOME} \
-   -v ${HOME}/.config/docker/ldc-foundation-core-0.1.0/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-foundation-core${ldcvers}:${HOME} \
+   -v ${HOME}/.config/docker/ldc-foundation-core${ldcvers}/workspace:/workspace \
    \
-   --name acore-0.1.0-b4 \
- ewsdocker/ldc-foundation:core-0.1.0-b4
+   --name acore${ldcvers}${ldcextv} \
+ ewsdocker/ldc-foundation:core${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "Unable to install/run acore-0.1.0-b4 from ewsdocker/ldc-foundation:core-0.1.0-b4"
+ 	echo "Unable to install/run acore${ldcvers}${ldcextv} from ewsdocker/ldc-foundation:core${ldcvers}${ldcextv}"
  	exit 2
  }
 
 echo
-echo "Successfully installed acore-0.1.0-b4 from ewsdocker/ldc-foundation:core-0.1.0-b4"
+echo "Successfully installed acore${ldcvers}${ldcextv} from ewsdocker/ldc-foundation:core${ldcvers}${ldcextv}"
 echo
 
 exit 0

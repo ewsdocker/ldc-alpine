@@ -9,14 +9,14 @@
 #
 # @author Jay Wheeler.
 # @version httpd-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage build
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -38,21 +38,25 @@
 # ========================================================================================
 # ========================================================================================
 
-echo
-echo "Stopping and removing httpd-0.1.0-b4"
-echo
+. ~/Development/ewsldc/ldc/ldc-common.sh
 
-docker stop httpd-0.1.0-b4 
-docker rm httpd-0.1.0-b4
+cd ~/Development/ewsldc/ldc-alpine/server/httpd
 
 echo
-echo "Removing ldc-server:httpd-0.1.0-b4"
+echo "Stopping and removing httpd${ldcvers}${ldcextv}"
 echo
 
-docker rmi ewsdocker/ldc-server:httpd-0.1.0-b4
+docker stop httpd${ldcvers}${ldcextv} 
+docker rm httpd${ldcvers}${ldcextv}
 
 echo
-echo "Building ldc-server:httpd-0.1.0-b4"
+echo "Removing ldc-server:httpd${ldcvers}${ldcextv}"
+echo
+
+docker rmi ewsdocker/ldc-server:httpd${ldcvers}${ldcextv}
+
+echo
+echo "Building ldc-server:httpd${ldcvers}${ldcextv}"
 echo
 
 docker build \
@@ -63,8 +67,8 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-server" \
   --build-arg BUILD_VERSION="httpd" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="" \
   --build-arg FROM_PARENT="httpd" \
@@ -73,15 +77,15 @@ docker build \
   --build-arg FROM_EXT_MOD="" \
   \
   --file=Dockerfile \
-  -t ewsdocker/ldc-server:httpd-0.1.0-b4 .
+  -t ewsdocker/ldc-server:httpd${ldcvers}${ldcextv} .
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-server:httpd-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-server:httpd${ldcvers}${ldcextv} failed"
  	exit 1
  }
 
 echo
-echo "Completed build of ldc-server:httpd-0.1.0-b4 from httpd:2.4.46-alpine"
+echo "Completed build of ldc-server:httpd${ldcvers}${ldcextv} from httpd:2.4.46-alpine"
 echo
 
 . run/httpd.sh

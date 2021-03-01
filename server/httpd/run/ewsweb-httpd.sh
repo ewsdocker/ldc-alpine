@@ -8,14 +8,14 @@
 #
 # @author Jay Wheeler.
 # @version ewsweb-httpd
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package httpd
 # @subpackage build
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -37,6 +37,8 @@
 # ========================================================================================
 # ========================================================================================
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 echo
 echo "Stopping and removing ewsweb-httpd"
 echo
@@ -45,7 +47,7 @@ docker stop ewsweb-httpd
 docker rm ewsweb-httpd
 
 echo
-echo "Installing and starting ewsweb-httpd from ewsdocker/ldc-server:httpd-0.1.0-b4"
+echo "Installing and starting ewsweb-httpd from ewsdocker/ldc-server:httpd${ldcvers}${ldcextv}"
 echo
 
 docker run \
@@ -59,20 +61,22 @@ docker run \
    -v /etc/localtime:/etc/localtime:ro \
    \
    -v ${HOME}/bin:/userbin \
-   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-server-httpd-0.1.0:/root \
-   -v ${HOME}/.config/docker/ldc-server-httpd-0.1.0/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-server-httpd-ewsweb${ldcvers}:/root \
+   -v ${HOME}/.config/docker/ldc-server-httpd-ewsweb${ldcvers}/workspace:/workspace \
    \
    -v ${HOME}/Development/ewsldc/ldc-development/web/docs:/usr/local/apache2/htdocs/ \
    \
    -p 80:80/tcp \
    -p 443:443/tcp \
    \
-   --network=webnet \
+   --network="${webnet}" \
    \
    --name web-httpd \
- ewsdocker/ldc-server:httpd-0.1.0-b4
+ ewsdocker/ldc-server:httpd${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
  	echo "Unable to install/run ewsweb-httpd from ewsdocker/ldc-server:httpd"

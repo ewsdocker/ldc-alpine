@@ -38,15 +38,17 @@
 # ========================================================================================
 # ========================================================================================
 
-echo
-echo "Stopping and removing ahtop-0.1.0-b4"
-echo
-
-docker stop ahtop-0.1.0-b4
-docker rm ahtop-0.1.0-b4
+. ~/Development/ewsldc/ldc/ldc-common.sh
 
 echo
-echo "Installing ahtop-0.1.0-b4 from ldc-console:htop-0.1.0-b4"
+echo "Stopping and removing ahtop${ldcvers}${ldcextv}"
+echo
+
+docker stop ahtop${ldcvers}${ldcextv}
+docker rm ahtop${ldcvers}${ldcextv}
+
+echo
+echo "Installing ahtop${ldcvers}${ldcextv} from ldc-console:htop${ldcvers}${ldcextv}"
 echo
 
 docker run \
@@ -64,21 +66,23 @@ docker run \
    -v /etc/localtime:/etc/localtime:ro \
    \
    -v ${HOME}/bin:/userbin \
-   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-console-htop-0.1.0:${HOME} \
-   -v ${HOME}/.config/docker/ldc-console-htop-0.1.0/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-console-htop${ldcvers}:${HOME} \
+   -v ${HOME}/.config/docker/ldc-console-htop${ldcvers}/workspace:/workspace \
    \
-   --name ahtop-0.1.0-b4 \
- ewsdocker/ldc-console:htop-0.1.0-b4
+   --name ahtop${ldcvers}${ldcextv} \
+ ewsdocker/ldc-console:htop${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-console:htop-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-console:htop${ldcvers}${ldcextv} failed"
  	exit 2
  }
 
 echo
-echo "Installation of ahtop-0.1.0-b4 was successful"
+echo "Installation of ahtop${ldcvers}${ldcextv} was successful"
 echo
 
 exit 0

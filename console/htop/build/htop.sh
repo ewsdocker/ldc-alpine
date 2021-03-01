@@ -9,14 +9,14 @@
 #
 # @author Jay Wheeler.
 # @version ldc-console:htop-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2018-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-console
 #
 # ========================================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2018-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.
@@ -37,23 +37,26 @@
 #
 # ========================================================================================
 # ========================================================================================
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 cd ~/Development/ewsldc/ldc-alpine/console/htop
 
 echo
-echo "Stopping and removing ahtop-0.1.0-b4"
+echo "Stopping and removing ahtop${ldcvers}${ldcextv}"
 echo
 
-docker stop ahtop-0.1.0-b4
-docker rm ahtop-0.1.0-b4
+docker stop ahtop${ldcvers}${ldcextv}
+docker rm ahtop${ldcvers}${ldcextv}
 
 echo
-echo "Removing ldc-console:htop-0.1.0-b4"
+echo "Removing ldc-console:htop${ldcvers}${ldcextv}"
 echo
 
-docker rmi ewsdocker/ldc-console:htop-0.1.0-b4
+docker rmi ewsdocker/ldc-console:htop${ldcvers}${ldcextv}
 
 echo
-echo "Building ewsdocker/ldc-console:htop-0.1.0-b4"
+echo "Building ewsdocker/ldc-console:htop${ldcvers}${ldcextv}"
 echo
 
 docker build \
@@ -64,25 +67,25 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-console" \
   --build-arg BUILD_VERSION="htop" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-foundation" \
   --build-arg FROM_VERS="base" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_EXT="-${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
   --file=Dockerfile \
-  -t ewsdocker/ldc-console:htop-0.1.0-b4 .
+  -t ewsdocker/ldc-console:htop${ldcvers}${ldcextv} .
 [[ $? -eq 0 ]] ||
  {
- 	echo "ewsdocker/ldc-console:htop-0.1.0-b4 failed"
+ 	echo "ewsdocker/ldc-console:htop${ldcvers}${ldcextv} failed"
  	exit 1
  }
 
 echo
-echo "Completed build of ldc-console:htop-0.1.0-b4 from ldc-foundation:base-0.1.0-b4"
+echo "Completed build of ldc-console:htop${ldcvers}${ldcextv} from ldc-foundation:base${ldcvers}${ldcextv}"
 echo
 
 . run/htop.sh
