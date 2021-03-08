@@ -8,8 +8,8 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version ldc-foundation:base-0.1.0-b4
-# @copyright © 2020. EarthWalk Software.
+# @version ldc-foundation:base-0.1.0-b5
+# @copyright © 2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-foundation
