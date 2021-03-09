@@ -79,7 +79,7 @@ docker build \
   --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
   --build-arg LIB_VERSION="${libver}" \
-  --build-arg LIB_VERS_MOD="${ldclib}" \
+  --build-arg LIB_VERS_MOD="${ldcextv}" \
   --build-arg LIB_INSTALL="1" \
   \
   --build-arg LIB_HOST="${pkgserver}" \

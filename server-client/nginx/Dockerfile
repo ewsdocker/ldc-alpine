@@ -7,15 +7,15 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.0-b4
-# @copyright © 2018-2020. EarthWalk Software.
+# @version 0.1.0-b5
+# @copyright © 2018-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-alpine
 # @subpackage ldc-server-client
 #
 # ========================================================================================
 #
-#	Copyright © 2018-2020. EarthWalk Software
+#	Copyright © 2018-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-alpine.

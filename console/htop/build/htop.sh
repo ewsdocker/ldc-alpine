@@ -73,7 +73,7 @@ docker build \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-foundation" \
   --build-arg FROM_VERS="base" \
-  --build-arg FROM_EXT="-${ldcvers}" \
+  --build-arg FROM_EXT="${ldcvers}" \
   --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
   --file=Dockerfile \

@@ -36,6 +36,9 @@
 #   <http://www.gnu.org/licenses/>.
 #
 # ========================================================================================
+#
+#	docker network create -d bridge --subnet=172.33.0.0/16 nginx-net
+#
 # ========================================================================================
 
 . ~/Development/ewsldc/ldc/ldc-common.sh
@@ -75,8 +78,6 @@ docker build \
   --build-arg FROM_VERS="base" \
   --build-arg FROM_EXT="${ldcvers}" \
   --build-arg FROM_EXT_MOD="${ldcextv}" \
-  \
-  --network="${nginxnet}" \
   \
   --file=Dockerfile \
   -t ewsdocker/ldc-server-client:nginx${ldcvers}${ldcextv} .
